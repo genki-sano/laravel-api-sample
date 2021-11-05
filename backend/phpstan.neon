@@ -1,0 +1,15 @@
+# vim: set ft=yaml:
+
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+        - bootstrap
+        - config
+        - database
+        - routes
+        - tests
+    level: 0
+

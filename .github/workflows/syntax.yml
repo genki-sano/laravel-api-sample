@@ -1,0 +1,86 @@
+name: syntax
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          tools: composer:v2
+      - name: Cache vendor
+        uses: actions/cache@v2
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Resolve dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        working-directory: ./backend
+      - name: Run phpstan
+        run: composer lint:phpcs
+        working-directory: ./backend
+
+  phpmd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          tools: composer:v2
+      - name: Cache vendor
+        uses: actions/cache@v2
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Resolve dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        working-directory: ./backend
+      - name: Run phpstan
+        run: composer lint:phpmd
+        working-directory: ./backend
+
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          tools: composer:v2
+      - name: Cache vendor
+        uses: actions/cache@v2
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Resolve dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        working-directory: ./backend
+      - name: Run phpstan
+        run: composer lint:phpstan
+        working-directory: ./backend

@@ -1,0 +1,82 @@
+{
+    "name": "genki-sano/laravel-api-sample",
+    "type": "project",
+    "description": "This repository is a sample code for Learn Laravel.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.65",
+        "laravel/sanctum": "^2.11",
+        "laravel/tinker": "^2.5"
+    },
+    "require-dev": {
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "nunomaduro/larastan": "^1.0",
+        "phpmd/phpmd": "^2.10",
+        "phpunit/phpunit": "^9.5.10",
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "lint:phpcs": [
+            "./vendor/bin/phpcs --standard=./phpcs.xml ./"
+        ],
+        "fix:phpcs": [
+            "./vendor/bin/phpcbf --standard=./phpcs.xml ./"
+        ],
+        "lint:phpmd": [
+            "./vendor/bin/phpmd ./ text phpmd.xml --suffixes php"
+        ],
+        "lint:phpstan": [
+            "./vendor/bin/phpstan analyse"
+        ],
+        "lint": [
+            "composer lint:phpcs",
+            "composer lint:phpmd",
+            "composer lint:phpstan"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
