@@ -12,7 +12,7 @@ class CreatePersonalAccessTokensTable extends Migration
      * @return void
      * @SuppressWarnings(PHPMD.ShortMethodName)
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
@@ -30,7 +30,7 @@ class CreatePersonalAccessTokensTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('personal_access_tokens');
     }

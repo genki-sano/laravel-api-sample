@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -12,10 +12,10 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_example(): void
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

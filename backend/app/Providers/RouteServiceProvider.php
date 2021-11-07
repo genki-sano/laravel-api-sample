@@ -24,18 +24,19 @@ class RouteServiceProvider extends ServiceProvider
      *
      * When present, controller route declarations will automatically be prefixed with this namespace.
      *
-     * @var string|null
+     * @var string
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+     protected $namespace = 'App\\Http\\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configureRateLimiting();
+
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
@@ -49,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
